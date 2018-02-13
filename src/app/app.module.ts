@@ -7,26 +7,37 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule } from "@ionic/storage";
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { ContactProvider } from '../providers/contact/contact';
+import { AddContactPage } from '../pages/add-contact/add-contact';
+import { EditContactPage } from '../pages/edit-contact/edit-contact';
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    AddContactPage,
+    EditContactPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot({
+      name: '__mydb',
+      driverOrder: ['indexeddb', 'sqlite', 'websql']
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    AddContactPage,
+    EditContactPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    ContactProvider
   ]
 })
 export class AppModule {}

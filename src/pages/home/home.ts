@@ -1,44 +1,48 @@
 import { Component } from "@angular/core";
 import { NavController } from "ionic-angular";
 
-export interface Contact {
-  name: String;
-  phone: String;
-}
+import {Contact} from '../../models/contact';
+import { EditContactPage } from '../edit-contact/edit-contact';
+import { AddContactPage } from "../add-contact/add-contact";
+import { ContactProvider } from "../../providers/contact/contact";
+
+
 
 @Component({
   selector: "page-home",
   templateUrl: "home.html"
 })
 export class HomePage {
-  items: Contact[];
+  isOn: boolean = false;
   contacts: Contact[];
-  private isOn: boolean = false;
 
-  constructor(public navCtrl: NavController) {
-    this.items = [
-      { name: "John", phone: "949447971" },
-      { name: "Richard", phone: "949443971" },
-      { name: "Jane", phone: "949447271" },
-      { name: "Dave", phone: "949447171" },
-      { name: "David", phone: "949447951" },
-      { name: "Mick", phone: "949447977" },
-      { name: "Mike", phone: "949447976" },
-      { name: "Mandy", phone: "949447974" },
-      { name: "Bob", phone: "949447901" },
-      { name: "Alice", phone: "949447981" },
-      { name: "Eve", phone: "949447972" }
-    ];
-    this.contacts = this.items;
-    this.contacts.sort();
+  constructor(public navCtrl: NavController, private contactProvider:ContactProvider) {
+  }
+
+  ionViewDidLoad() {
+    this.contactProvider.getAllContact().then(result => {
+      this.contacts = result;
+    });
   }
 
   toggleSearchBar() {
     this.isOn = !this.isOn;
   }
 
+  editContact(event, item) {
+    this.navCtrl.push(EditContactPage, {
+      item: item
+    });
+  }
+
+  addContact() {
+    this.navCtrl.push(AddContactPage);
+  }
+
   getItems(event) {
-    this.contacts = this.items
-      .filter( c => c.name.toLowerCase().startsWith(event.target.value.toLowerCase()));
+    let val = event.target.value;
+    if (val != null && val.length !=0 ) {
+
+    }
   }
 }

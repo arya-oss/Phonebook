@@ -1,0 +1,58 @@
+<!--
+  Generated template for the EditContactPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>View Contact</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="removeContact()" large>
+        <ion-icon name="trash"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-label floating>Name</ion-label>
+      <ion-input type="text" [(ngModel)]="item.name" value="{{item.name}}"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Phone</ion-label>
+      <ion-input type="tel" [(ngModel)]="item.phone" value="{{item.phone}}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Email</ion-label>
+      <ion-input type="email" [(ngModel)]="item.email" value="{{item.email}}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Company</ion-label>
+      <ion-input type="text" [(ngModel)]="item.company" value="{{item.company}}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Address</ion-label>
+      <ion-input type="text" [(ngModel)]="item.address" value="{{item.address}}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Relation</ion-label>
+      <ion-select [(ngModel)]="item.relation">
+        <ion-option value="family">Family</ion-option>
+        <ion-option value="friend">Friend</ion-option>
+        <ion-option value="colleague">Colleague</ion-option>
+        <ion-option value="acquitance">Acquitance</ion-option>
+        <ion-option value="other">Other</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <div padding>
+    <button ion-button block (click)="updateContact()"> Update </button>
+  </div>
+</ion-content>

@@ -5,7 +5,7 @@
     </ion-title>
     <ion-searchbar *ngIf="isOn" (ionInput)="getItems($event)"></ion-searchbar>
     <ion-buttons end>
-      <button (click)="toggleSearchBar()">
+      <button ion-button (click)="toggleSearchBar()" large>
         <ion-icon name="search"></ion-icon>
       </button>
     </ion-buttons>
@@ -14,12 +14,15 @@
 
 <ion-content>
   <ion-list>
-    <button ion-item *ngFor="let item of contacts">
+    <button ion-item *ngFor="let contact of contacts" (click)="editContact($event,contact)">
       <div item-start>
-        <span class="my-circle" title="{{ item.name[0] }}"></span>
+        <span class="my-circle my-circle-{{ contact.name[0].toUpperCase() }}" title="{{ contact.name[0] }}"></span>
       </div>
-      <h2> {{item.name}}</h2>
-      <p> {{item.phone }}</p>
+      <h2>{{contact.name}}</h2>
+      <p>{{contact.phone}}</p>
     </button>
   </ion-list>
+  <ion-fab right bottom>
+    <button ion-fab (click)="addContact()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
 </ion-content>
