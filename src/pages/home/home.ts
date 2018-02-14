@@ -21,7 +21,11 @@ export class HomePage {
 
   ionViewDidLoad() {
     this.contactProvider.getAllContact().then(result => {
-      this.contacts = result;
+      this.contacts = result.sort ((a,b) => {
+        if (a.name > b.name) return 1;
+        else if (a.name === b.name) return 0;
+        else return -1;
+      });
     });
   }
 
@@ -41,8 +45,20 @@ export class HomePage {
 
   getItems(event) {
     let val = event.target.value;
-    if (val != null && val.length !=0 ) {
-
+    if (this.isOn && val != null && val.length !=0 ) {
+      this.contacts = this.contacts.filter(c => c.name.toLowerCase().startsWith(val.toLowerCase())).sort((a,b) => {
+        if (a.name > b.name) return 1;
+        else if (a.name === b.name) return 0;
+        else return -1;
+      });
+    } else {
+      this.contactProvider.getAllContact().then(result => {
+        this.contacts = result.sort((a,b) => {
+          if (a.name > b.name) return 1;
+          else if (a.name === b.name) return 0;
+          else return -1;
+        });
+      });
     }
   }
 }

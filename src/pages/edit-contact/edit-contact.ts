@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
-import { NavParams } from 'ionic-angular';
+import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { Contact } from '../../models/contact';
+
+import {ContactProvider} from '../../providers/contact/contact';
+import { HomePage } from '../home/home';
 
 /**
  * Generated class for the EditContactPage page.
@@ -15,12 +18,36 @@ import { Contact } from '../../models/contact';
 })
 export class EditContactPage {
   item: Contact;
-  constructor(public navParams: NavParams) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private contactProvider:ContactProvider,
+              private toastCtrl: ToastController) {
     this.item = navParams.get('item');
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EditContactPage');
+  }
+
+  updateContact () {
+    this.contactProvider.updateOne(this.item).then(res => {
+      this.presentToast('User was updated successfully');
+    });
+  }
+
+  removeContact() {
+    this.contactProvider.removeOne(this.item.id).then(res => {
+      this.presentToast('User was deleted successfully');
+      this.navCtrl.push(HomePage);
+    });
+  }
+
+  presentToast(msg: string) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 3000
+    });
+    toast.present();
   }
 
 }
