@@ -17,15 +17,18 @@ export class HomePage {
   contacts: Contact[];
 
   constructor(public navCtrl: NavController, private contactProvider:ContactProvider) {
+    
   }
 
-  ionViewDidLoad() {
+  ionViewWillEnter() {
     this.contactProvider.getAllContact().then(result => {
-      this.contacts = result.sort ((a,b) => {
-        if (a.name > b.name) return 1;
-        else if (a.name === b.name) return 0;
-        else return -1;
-      });
+      if (result) {
+        this.contacts = result.sort ((a,b) => {
+          if (a.name > b.name) return 1;
+          else if (a.name === b.name) return 0;
+          else return -1;
+        });
+      }
     });
   }
 
